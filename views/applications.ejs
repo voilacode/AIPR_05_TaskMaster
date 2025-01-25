@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Jobs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <nav class="bg-teal-800 p-4 py-2 fixed z-0 w-full mb-40 top-0">
+    <div class="max-w-screen-xl p-2 sm:px-16 mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+          <a href="/" class="text-white text-lg font-semibold flex items-center bg-white p-2 space-x-2 rounded">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkXihGXJM9cuLB9CJ0utK5kqx9YctTG9Zju7mlX9XrOaaNfUphxrnSXOcxvwZQNoc7fK4&usqp=CAU" width="30px" alt="">
+            <span class="text-black text-lg">JobScope</span>
+        </a>
+        </div>
+        <div class="hidden md:flex items-center space-x-4 text-lg">
+            <a href="/" class="text-gray-300 hover:text-white">Home</a>
+            <% if (user && user.role !== 'user') { %>  
+              <a href="/admin/applications" class="text-gray-300 hover:text-white">Admin</a>
+            <% } %>
+            <a href="/profile" class="text-gray-300 hover:text-white">Profile</a>
+            <a href="/logout" class="text-gray-300 hover:text-white">Logout</a>
+        </div>
+        <div class="md:hidden">
+            <button id="menu-toggle" class="text-gray-300 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+  </nav>
+
+  <div class="max-w-screen-xl p-4 sm:px-12 mx-auto py-10 my-20">
+    <div class=" bg-white rounded p-8 shadow">
+
+      <h1 class="text-3xl font-semibold text-center mb-8">All Job Applications</h1>
+      <table class="min-w-full table-auto mb-10">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 border">SNO</th>
+            <th class="px-4 py-2 border">Job ID</th>
+            <th class="px-4 py-2 border">User Name</th>
+            <th class="px-4 py-2 border">Email</th>
+            <th class="px-4 py-2 border">Phone</th>
+            <th class="px-4 py-2 border">Gender</th>
+            <th class="px-4 py-2 border">Graduation</th>
+            <th class="px-4 py-2 border">Applied At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% applications.forEach((application, index) => { %>
+            <tr>
+              <td class="px-4 py-2 border"><%= index+1 %></td>
+              <td class="px-4 py-2 border">
+                <a href="/jobs/<%= application.jobId %>" class="text-blue-500 hover:underline">
+                  <%= application.jobId %>
+                </a>
+              </td>
+              <td class="px-4 py-2 border"><%= application.userName %></td>
+              <td class="px-4 py-2 border"><%= application.userEmail %></td>
+              <td class="px-4 py-2 border"><%= application.phone %></td>
+              <td class="px-4 py-2 border"><%= application.gender %></td>
+              <td class="px-4 py-2 border"><%= application.graduation %></td>
+              <td class="px-4 py-2 border"><%= application.createdAt %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <footer class="bg-teal-800 p-4 fixed z-0 w-full bottom-0 text-white text-lg text-center mt-20">
+    &#169; JobScope
+  </footer>
+  
+  <script>
+    // Filter jobs based on search input
+    function filterJobs() {
+      const query = document.getElementById('searchBar').value.toLowerCase();
+      const jobCards = document.querySelectorAll('.job-card');
+  
+      jobCards.forEach((card) => {
+        const title = card.getAttribute('data-title');
+        if (title.includes(query)) {
+          card.style.display = ''; // Show the card
+        } else {
+          card.style.display = 'none'; // Hide the card
+        }
+      });
+    }
+  </script>
+  
+</body>
+</html>

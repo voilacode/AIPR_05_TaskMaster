@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Apply for Job</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <nav class="bg-teal-800 p-4 py-2 fixed z-0 w-full mb-40 top-0">
+    <div class="max-w-screen-xl p-2 sm:px-16 mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+          <a href="/" class="text-white text-lg font-semibold flex items-center bg-white p-2 space-x-2 rounded">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkXihGXJM9cuLB9CJ0utK5kqx9YctTG9Zju7mlX9XrOaaNfUphxrnSXOcxvwZQNoc7fK4&usqp=CAU" width="30px" alt="">
+            <span class="text-black text-lg">JobScope</span>
+        </a>
+        </div>
+        <div class="hidden md:flex items-center space-x-4 text-lg">
+            <a href="/" class="text-gray-300 hover:text-white">Home</a>
+            <% if (user && user.role !== 'user') { %>  
+              <a href="/admin/applications" class="text-gray-300 hover:text-white">Admin</a>
+            <% } %>
+            <a href="/profile" class="text-gray-300 hover:text-white">Profile</a>
+            <a href="/logout" class="text-gray-300 hover:text-white">Logout</a>
+        </div>
+        <div class="md:hidden">
+            <button id="menu-toggle" class="text-gray-300 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+  </nav>
+
+  <div class=" my-10 mx-auto p-4 max-w-screen-xl sm:px-16 my-20">
+    <h1 class="text-3xl font-semibold text-center mb-8">Apply for <%= job.title %></h1>
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto">
+      <form action="/submit-application" method="POST" class="space-y-4">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input type="hidden" name="jobId" value="<%= job.id %>">
+      
+        <div>
+          <label for="name" class="block text-gray-700">Name</label>
+          <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded" required>
+        </div>
+        
+        <div>
+          <label for="email" class="block text-gray-700">Email</label>
+          <input type="email" name="email" id="email" class="w-full p-2 border border-gray-300 rounded" required>
+        </div>
+      
+        <div>
+          <label for="phone" class="block text-gray-700">Phone</label>
+          <input type="tel" name="phone" id="phone" class="w-full p-2 border border-gray-300 rounded" required>
+        </div>
+      
+        <div>
+          <label for="gender" class="block text-gray-700">Gender</label>
+          <select name="gender" id="gender" class="w-full p-2 border border-gray-300 rounded" required>
+            <option value="" disabled selected>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      
+        <div>
+          <label for="graduation" class="block text-gray-700">Graduation Percentage</label>
+          <input type="number" name="graduation" id="graduation" step="0.01" class="w-full p-2 border border-gray-300 rounded" required>
+        </div>
+      
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Submit Application</button>
+      </form>
+      
+    </div>
+  </div>
+
+  <footer class="bg-teal-800 p-4 fixed z-0 w-full bottom-0 text-white text-lg text-center ">
+    &#169; JobScope
+  </footer>
+</body>
+</html>
