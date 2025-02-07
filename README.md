@@ -34,7 +34,7 @@ const db = mysql
     host: 'localhost',
     user: 'username',
     password: 'password',
-    database: 'databasenaem',
+    database: 'databasename',
   })
   .promise();
 
