@@ -9,32 +9,21 @@
 
 </head>
 <body class="bg-gray-100 text-white">
-  <nav class="bg-teal-800 p-4 py-2 fixed z-0 w-full mb-40 top-0">
-    <div class="max-w-screen-xl p-2 sm:px-16 mx-auto flex justify-between items-center">
-        <div class="flex items-center space-x-4">
-          <a href="/" class="text-white text-lg font-semibold flex items-center bg-white p-2 space-x-2 rounded">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkXihGXJM9cuLB9CJ0utK5kqx9YctTG9Zju7mlX9XrOaaNfUphxrnSXOcxvwZQNoc7fK4&usqp=CAU" width="30px" alt="">
-            <span class="text-black text-lg">JobScope</span>
-        </a>
+    <!-- Navbar -->
+    <nav class="bg-gray-600 p-4 shadow-md">
+      <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
+        <h1 class="text-white text-2xl font-semibold"><a href="/" class="text-white">SiteForge</a></h1>
+        <div class="flex space-x-4">
+          <a href="/profile" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Profile</a>
+          <a href="/list" class="text-white  text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">My Pages</a>
+          <% if (user && user.role !== 'user') { %>  
+            <a href="/admin" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Admin</a>
+          <% } %>
+          <a href="/logout" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Logout</a>
         </div>
-        <div class="hidden md:flex items-center space-x-4 text-lg">
-            <a href="/" class="text-gray-300 hover:text-white">Home</a>
-            <% if (user && user.role !== 'user') { %>  
-              <a href="/admin/applications" class="text-gray-300 hover:text-white">Admin</a>
-            <% } %>
-            <a href="/profile" class="text-gray-300 hover:text-white">Profile</a>
-            <a href="/logout" class="text-gray-300 hover:text-white">Logout</a>
-        </div>
-        <div class="md:hidden">
-            <button id="menu-toggle" class="text-gray-300 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
-        </div>
-    </div>
-  </nav>
-  
+      </div>
+    </nav>
+    
   <!-- Profile Section -->
   <section class="max-w-screen-xl px-16 py-8 mx-auto mt-20">
     <div class="w-1/2 mx-auto bg-white shadow-md rounded-lg p-8 flex justify-between items-center">

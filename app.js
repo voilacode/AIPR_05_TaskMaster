@@ -3,9 +3,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const csrf = require('csurf');
-
+const pageBuilderRoutes = require('./routes/pageBuilderRoutes');
 const authRoutes = require('./routes/authRoutes');
-const jobRoutes = require('./routes/jobRoutes');
 
 const app = express();
 
@@ -21,6 +20,7 @@ app.use(cookieParser());
 // CSRF protection
 const csrfProtection = csrf({ cookie: true });
 app.use(csrfProtection);
+app.use(express.json()); // Ensure the body is being parsed as JSON
 
 // Session setup
 app.use(
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/', authRoutes);
-app.use('/', jobRoutes);
+app.use('/', pageBuilderRoutes);
 
 // Start the server
 app.listen(3000, () => {
