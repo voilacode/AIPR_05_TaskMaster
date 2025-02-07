@@ -23,6 +23,7 @@
 ```sh
 git clone https://github.com/yourusername/siteforge.git  
 cd siteforge
+```
 
 ### 2️⃣ Setup Database Credentials
 ```sh
@@ -38,8 +39,10 @@ const db = mysql
   .promise();
 
 module.exports = db;
+```
 
 ### 3️⃣ Setup Database
+```sh
 -- Create the 'users' table
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -57,6 +60,9 @@ CREATE TABLE pages (
     content JSON NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+```
 
 ### 4️⃣ Start the Server
+```sh
 node app.js
+```
