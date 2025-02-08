@@ -4,22 +4,44 @@ const db = require('../config/db');
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
 
-exports.register = (req, res) => {
+exports.registerUser = async (req, res) => {
   const { name, phone, email, password, gender, location } = req.body;
-  
   const hashedPassword = bcrypt.hashSync(password, 10);
 
-  userModel.registerUser(name, phone, email, hashedPassword, gender, location, (err) => {
-    if (err) {
-      console.error(err);
-      res.redirect('/register?error=Registration failed');
-    } else {
-      res.redirect('/login');
-    }
-  });
+  try {
+    await userModel.registerUser(name, phone, email, hashedPassword, gender, location);
+
+    const user = await new Promise((resolve, reject) => {
+      userModel.getUserByEmail(email, (err, user) => {
+        if (err || !user) reject("User not found");
+        else resolve(user);
+      });
+    });
+
+    req.session.user = {
+      id: user.id,
+      name: user.name,
+      phone: user.phone,
+      email: user.email,
+      gender: user.gender,
+      location: user.location,
+      role: user.role || 'user'
+    };
+
+    await new Promise((resolve, reject) => {
+      req.session.save((err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+
+    res.redirect('/');
+  } catch (err) {
+    res.redirect('/register?error=Registration failed');
+  }
 };
 
-exports.login = (req, res) => {
+exports.loginUser = (req, res) => {
   const { email, password } = req.body;
 
   userModel.getUserByEmail(email, (err, user) => {
@@ -39,8 +61,6 @@ exports.login = (req, res) => {
       email: user.email,
       phone: user.phone,
     };
-    
-    req.session.userId = user.id; 
 
     req.session.save((err) => {
       if (err) {
@@ -48,20 +68,6 @@ exports.login = (req, res) => {
       }
       res.redirect('/');
     });
-  });
-};
-
-exports.getUserByEmail = (email, callback) => {
-  const query = 'SELECT * FROM users WHERE email = ?';
-  db.query(query, [email], (err, results) => {
-    if (err) {
-      return callback(err, null);
-    }
-    if (results.length > 0) {
-      callback(null, results[0]); 
-    } else {
-      callback(null, null); 
-    }
   });
 };
 

@@ -9,13 +9,13 @@ router.get('/register', (req, res) => {
   res.render('register', { csrfToken: req.csrfToken() });
 });
 
-router.post('/register', authController.register);
+router.post('/register', authController.registerUser);
 
 router.get('/login', (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 });
 
-router.post('/login', authController.login);
+router.post('/login', authController.loginUser);
 
 router.get('/logout', authController.logout);
 

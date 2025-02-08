@@ -25,11 +25,14 @@ app.use(express.json()); // Ensure the body is being parsed as JSON
 // Session setup
 app.use(
   session({
-    secret:
-      process.env.SESSION_SECRET ||
-      '0c8eccddb63bb2f42b14de61ef1e5962e0a6699671cb3cccf6514eb4f477d675a69e6a4933ea29054bf27959ff91c7fe31f9381897d4472574b829c8ab9efc21',
+    secret: process.env.SESSION_SECRET || '3e6166a76a331d65fb41187d070a0dc2d577cf7c755bbdac547aad8d4f7223e3', // Replace with your generated key
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+      maxAge: 3600000, // 1 hour
+    },
   })
 );
 

@@ -1,4 +1,3 @@
-// script.js
 const builderArea = document.getElementById('builderArea');
 const saveBtn = document.getElementById('saveBtn');
 let selectedElement = null;
@@ -11,35 +10,73 @@ document.querySelectorAll('.element').forEach(el => {
 });
 
 builderArea.addEventListener('dragover', (e) => e.preventDefault());
-builderArea.addEventListener('drop', (e) => {
+
+builderArea.addEventListener('drop', async (e) => {
     e.preventDefault();
     
     const type = e.dataTransfer.getData('type');
-    const newElement = document.createElement(type); // Create the actual element type
+    let newElement;
+
+    if (type === 'ul' || type === 'ol') {
+        // Create list with a single "List Item"
+        newElement = document.createElement(type);
+        const listItem = document.createElement('li');
+        listItem.contentEditable = true;
+        listItem.textContent = 'List Item'; // Default text
+        newElement.appendChild(listItem);
+
+        newElement.className = 'rounded';
+        newElement.style.padding = '8px';
+        newElement.style.border = '1px solid #000';
+        
+        newElement.addEventListener('click', () => selectElement(newElement));
+        builderArea.appendChild(newElement);
+    } 
     
-    if (type === 'h1') newElement.textContent = 'Heading';
-    else if (type === 'p') newElement.textContent = 'Paragraph';
-    else if (type === 'button') newElement.textContent = 'Button';
-    else if (type === 'a') {
-        newElement.textContent = 'Anchor';
-        newElement.href = '#';
-    } else if (type === 'ul') {
-        newElement.innerHTML = '<li>List Item</li>';
-    } else if (type === 'input') {
-        newElement.placeholder = 'Input Field';
-    } else {
-        newElement.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+    else if (type === 'input') {
+        // Show a prompt to select input type
+        const inputType = prompt('Enter input type (text, number, email, date):', 'text');
+        if (inputType) {
+            newElement = document.createElement('input');
+            newElement.type = inputType;
+            newElement.placeholder = `Enter ${inputType}`;
+            newElement.style.padding = '6px';
+            newElement.style.border = '1px solid #000';
+            newElement.style.borderRadius = '4px';
+            newElement.style.display = 'block';
+            newElement.addEventListener('click', () => selectElement(newElement));
+            
+            builderArea.appendChild(newElement);
+        }
+        return;
+    } 
+    
+    else {
+        // Default element creation
+        newElement = document.createElement(type);
+        if (type === 'h1') newElement.textContent = 'Heading';
+        else if (type === 'p') newElement.textContent = 'Paragraph';
+        else if (type === 'button') newElement.textContent = 'Button';
+        else if (type === 'a') {
+            newElement.textContent = 'Anchor';
+            newElement.href = '#';
+        } else if (type === 'input') {
+            newElement.placeholder = 'Input Field';
+        } else {
+            newElement.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+        }
     }
 
-    newElement.contentEditable = type !== 'input' && type !== 'ul' && type !== 'form'; // Prevent editability for some elements
-    newElement.className = `${type} rounded`; // Add "rounded" class
+    newElement.contentEditable = type !== 'input' && type !== 'form' && type !== 'ul' && type !== 'ol';
+    newElement.className = `${type} rounded`;
     newElement.style.border = '1px solid #000';
-    newElement.style.padding = '8px'; // Add padding for spacing
+    newElement.style.padding = '8px';
     newElement.addEventListener('click', () => selectElement(newElement));
-    
+
     builderArea.appendChild(newElement);
 });
 
+// Select element to apply styles
 function selectElement(el) {
     selectedElement = el;
     document.getElementById('stylePanel').style.display = 'block';
@@ -119,28 +156,3 @@ saveBtn.addEventListener('click', async () => {
         }
     }
 });
-
-async function loadPage(id) {
-    try {
-        const response = await fetch(`/page/${id}`);
-        const data = await response.json();
-        
-        if (!data.content) return alert('No content found');
-
-        builderArea.innerHTML = ''; // Clear existing elements
-
-        JSON.parse(data.content).forEach(el => {
-            const newElement = document.createElement(el.type);
-            newElement.textContent = el.content;
-            newElement.style.cssText = el.styles;
-            newElement.className = el.type;
-            newElement.style.border = '1px solid #000';
-            newElement.addEventListener('click', () => selectElement(newElement));
-            
-            builderArea.appendChild(newElement);
-        });
-    } catch (err) {
-        console.error('Error loading page:', err);
-        alert('Error loading page');
-    }
-}
