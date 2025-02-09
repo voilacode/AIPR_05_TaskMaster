@@ -1,13 +1,14 @@
-# SignSense: AI Hand Gesture-Based Language Interpreter  
+# SiteForge: AI Website Builder of Tomorrow  
 
 ## 🚀 Introduction  
-**SignSense** is an advanced AI-powered hand gesture-based language interpreter built with **Node.js, Express, Tailwind CSS, and MySQL**. It enables users to **translate hand gestures** into text, allowing seamless communication for those with hearing impairments. The platform also features **role-based access control** to manage different user permissions.   
+**SiteForge** is an advanced AI-powered website builder built with **Node.js, Express, Tailwind CSS, and MySQL**. It allows users to **drag & drop HTML elements** onto a canvas, **customize them using a style popup**, and **save pages for later access**. The platform also features **role-based access control** to manage different user permissions.  
 
 ## 🎯 Features  
-- **Hand Gesture Recognition** – Translate hand gestures into text using AI-powered models.  
-- **Real-Time Translation** – Provides instant feedback as users perform gestures.  
+- **Drag & Drop Page Builder** – Select from a variety of HTML elements and arrange them freely.  
+- **Style Customization** – Modify styles using an interactive popup with real-time previews.  
+- **Save & Revisit Pages** – Store pages in the database and access them anytime.  
 - **Role-Based Access Control** – Different user roles with varying permissions.  
-- **Responsive UI** – Built with **Tailwind CSS** for a sleek and adaptive design. 
+- **Responsive UI** – Built with **Tailwind CSS** for a sleek and adaptive design.  
 
 ## 🛠️ Tech Stack  
 - **Backend:** Node.js, Express.js  
@@ -15,12 +16,13 @@
 - **Database:** MySQL  
 - **Authentication & Roles:** Csurf, Express Session  
 
+
 ## 🚀 Getting Started  
 
 ### 1️⃣ Clone the Repository  
 ```sh
-git clone https://github.com/yourusername/signsense.git  
-cd signsense
+git clone https://github.com/yourusername/siteforge.git  
+cd siteforge
 ```
 
 ### 2️⃣ Setup Database Credentials
@@ -50,9 +52,20 @@ CREATE TABLE users (
     role ENUM('user', 'admin') DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Create the 'pages' table
+CREATE TABLE pages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(40) NOT NULL,
+    content JSON NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 ```
 
 ### 4️⃣ Start the Server
 ```sh
 node app.js
 ```
+
+
+convert this to an app called "SignSense: AI Hand Gesture-Based Language Interpreter", and keep table only of users table
