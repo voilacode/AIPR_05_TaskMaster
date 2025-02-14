@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AI Page Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+  <nav class="bg-gray-600 p-4 shadow-md">
+    <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
+      <h1 class="text-white text-2xl font-semibold"><a href="/" class="text-white">SiteForge</a></h1>
+      <div class="flex space-x-4">
+        <a href="/profile" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Profile</a>
+        <a href="/list" class="text-white  text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">My Pages</a>
+        <a href="/ai/page" class="text-white  text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Generate Pages</a>
+        <% if (user && user.role !== 'user') { %>  
+          <a href="/admin" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Admin</a>
+        <% } %>
+        <a href="/logout" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+    <div class="max-w-screen-xl p-4 sm:px-16 mx-auto mt-10 mb-20">
+        <h1 class="text-2xl font-semibold my-8">AI Web Page Generator</h1>
+        <form action="/ai/page" method="POST" class="p-4 bg-white shadow-md rounded">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <textarea name="prompt" rows="4" class="resize-none p-2 border rounded border border-gray-200 focus: border-gray-200 m-4 w-[97%]" placeholder="Enter your prompt..."></textarea>
+            <button type="submit" class="w-full p-2 mt-2 bg-blue-500 text-white rounded">Generate Site</button>
+        </form>
+    </div>
+
+    <footer class="bg-gray-600 p-4 shadow-md text-center text-white fixed bottom-0 w-full mt-28">
+        &#169; SiteForge
+    </footer>
+</body>
+</html>

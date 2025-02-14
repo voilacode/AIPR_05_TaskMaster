@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const csrf = require('csurf');
 const pageBuilderRoutes = require('./routes/pageBuilderRoutes');
 const authRoutes = require('./routes/authRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/', authRoutes);
 app.use('/', pageBuilderRoutes);
+app.use('/ai', aiRoutes);
 
 // Start the server
 app.listen(3000, () => {
