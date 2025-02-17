@@ -1,8 +1,8 @@
-# coreapp: Barebone Code Framework for Building Projects
+# Coreapp: Barebone Framework for Building Projects
 
 ## 🚀 Introduction
 
-**coreapp** is a minimalistic code framework designed to serve as a foundation for building other applications. Built with **Node.js, Express, Tailwind CSS, and MySQL**, this framework provides the essential features required for authentication, role-based access control, and AI-driven content generation via the GPT Rapid API.
+**Coreapp** is a minimalistic code framework designed to serve as a foundation for building other applications. Built with **Node.js, Express, Tailwind CSS, and MySQL**, this framework provides the essential features required for authentication, role-based access control, and AI-driven content generation via the GPT Rapid API.
 
 ## 🎯 Features
 
