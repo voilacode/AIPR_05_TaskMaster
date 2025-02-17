@@ -65,19 +65,25 @@ CREATE TABLE users (
 );
 ```
 
-Insert default users with password as 12345
+Insert default users into tables, the accounts are created with password as 12345
 
 ```sh
 INSERT INTO users (name, phone, email, password, gender, location, role)
 VALUES ('Admin', '1234567890', 'admin@gmail.com', '$2b$10$K7VtV9GZnFh1i.AJ1lDAauodmOPX6P5kpcKl7tt4jIhZ1P33mpsNi', 'male', 'Admin Location', 'admin');
+
 INSERT INTO users (name, phone, email, password, gender, location, role)
 VALUES ('User', '1234567890', 'user@gmail.com', '$2b$10$K7VtV9GZnFh1i.AJ1lDAauodmOPX6P5kpcKl7tt4jIhZ1P33mpsNi', 'male', 'User Location', 'user');
 ```
 
-### 4️⃣ Start the Server
+## Login Details
+
+- **User Account:** email: user@gmail.com, password: 12345
+- **Admin Account:** email: admin@gmail.com, password: 12345
+
+### 4️⃣ Run the application by starting the server
 
 ```sh
 node app.js
 ```
 
-convert this to an app called "SignSense: AI Hand Gesture-Based Language Interpreter", and keep table only of users table
+Open the browser and point the url to http://localhost:3000
