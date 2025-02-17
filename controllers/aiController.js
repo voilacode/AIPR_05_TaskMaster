@@ -1,21 +1,28 @@
+// Import AI model
 const aiModel = require('../models/aiModel');
 
-exports.getPage = (req, res) => {
-    const user = req.session.user;
-    res.render('home', { user });
+// Render AI app page with form to take prompt
+exports.getAIApp = (req, res) => {
+  const user = req.session.user;
+  res.render('aiapp', { user, content: '' });
 };
 
-exports.generatePage = async (req, res) => {
-    let { prompt } = req.body;
-    const user = req.session.user;
+// Handle AI content generation
+exports.generateAIContent = async (req, res) => {
+  let { prompt } = req.body;
+  const user = req.session.user;
 
-    prompt += "Use inline styling only!";
-    const generatedCode = await aiModel.generateWebPageCode(prompt);
-    
-    if (!generatedCode) {
-        return res.render('home', { error: 'Failed to generate code', code: '' });
-    }
+  // Generate content using AI model
+  const generatedContent = await aiModel.generateAIContent(prompt);
 
-    res.render('result', { code: generatedCode, user });
+  // Show error if content generation fails
+  if (!generatedContent) {
+    return res.render('aiApp', {
+      error: 'Failed to generate code',
+      content: '',
+    });
+  }
+
+  // Render AI app page with generated content
+  res.render('aiapp', { content: generatedContent, user });
 };
-

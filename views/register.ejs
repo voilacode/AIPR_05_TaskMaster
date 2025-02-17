@@ -10,6 +10,14 @@
 <body class="bg-gray-100 flex items-center justify-center h-[140vh]">
   <div class="w-full max-w-lg my-20 p-6 bg-white rounded-lg shadow-lg">
     <h1 class="text-2xl font-semibold mb-6 text-center text-gray-800">Register</h1>
+    
+    <!-- Display error message if any -->
+    <% if (error) { %>
+      <div class="bg-red-500 text-white p-4 rounded mb-4">
+        <p><%= error %></p>
+      </div>
+    <% } %>
+    
     <form action="/register" method="POST" class="space-y-4">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <div>

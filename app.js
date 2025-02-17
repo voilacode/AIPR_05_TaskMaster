@@ -1,12 +1,14 @@
-const express = require('express');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const csrf = require('csurf');
-const pageBuilderRoutes = require('./routes/pageBuilderRoutes');
-const authRoutes = require('./routes/authRoutes');
-const aiRoutes = require('./routes/aiRoutes');
+// Import necessary dependencies for the application
+const express = require('express'); // Web framework
+const session = require('express-session'); // Session management
+const bodyParser = require('body-parser'); // Parsing request bodies
+const cookieParser = require('cookie-parser'); // Parsing cookies
+const csrf = require('csurf'); // CSRF protection
+const coreRoutes = require('./routes/coreRoutes'); // Core routes
+const authRoutes = require('./routes/authRoutes'); // Authentication routes
+const aiRoutes = require('./routes/aiRoutes'); // AI routes
 
+// Initialize Express app
 const app = express();
 
 // Set view engine
@@ -26,7 +28,9 @@ app.use(express.json()); // Ensure the body is being parsed as JSON
 // Session setup
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || '3e6166a76a331d65fb41187d070a0dc2d577cf7c755bbdac547aad8d4f7223e3', // Replace with your generated key
+    secret:
+      process.env.SESSION_SECRET ||
+      '3e6166a76a331d65fb41187d070a0dc2d577cf7c755bbdac547aad8d4f7223e3', // Replace with your generated key
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -51,8 +55,8 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/', authRoutes);
-app.use('/', pageBuilderRoutes);
-app.use('/ai', aiRoutes);
+app.use('/', coreRoutes);
+app.use('/', aiRoutes);
 
 // Start the server
 app.listen(3000, () => {

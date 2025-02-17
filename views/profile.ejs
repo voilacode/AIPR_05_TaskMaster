@@ -1,31 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= user.name %></title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAQHwjXyAiIxUCnh3-cFywq0K4ZmDFo20YAw&s">
+ <!-- Loading Header modules from snippets -->
+ <%- include('snippets/header') %>
 
-</head>
-<body class="bg-gray-100 text-white">
-    <!-- Navbar -->
-    <nav class="bg-gray-600 p-4 shadow-md">
-      <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
-        <h1 class="text-white text-2xl font-semibold"><a href="/" class="text-white">SiteForge</a></h1>
-        <div class="flex space-x-4">
-          <a href="/profile" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Profile</a>
-          <a href="/list" class="text-white  text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">My Pages</a>
-          <a href="/ai/page" class="text-white  text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Generate Pages</a>
-          <% if (user && user.role !== 'user') { %>  
-            <a href="/admin" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Admin</a>
-          <% } %>
-          <a href="/logout" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Logout</a>
-        </div>
-      </div>
-    </nav>
-    
-  <!-- Profile Section -->
+<main class="max-w-screen-xl px-16 mx-auto">
+     <!-- Profile Section -->
   <section class="max-w-screen-xl px-16 py-8 mx-auto mt-20">
     <div class="w-1/2 mx-auto bg-white shadow-md rounded-lg p-8 flex justify-between items-center">
       <div>
@@ -38,13 +15,10 @@
           <li><span class="">Location:</span> <%= user.location %></li>
         </ul>
       </div>
-    
     </div>
     <a href="/" class="w-1/2 mx-auto block mt-6 bg-teal-600 text-white hover:bg-teal-700 duration-300 px-8 py-2 rounded text-center">Back to Home</a>
   </section>
-
-  <footer class="bg-teal-800 p-4 fixed z-0 w-full bottom-0 text-white text-lg text-center ">
-    &#169; SiteForge
-  </footer>
-</body>
-</html>
+</main>
+      
+ <!-- Loading Footer modules from snippets -->
+ <%- include('snippets/footer') %>
