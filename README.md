@@ -1,31 +1,37 @@
-# SiteForge: AI Website Builder of Tomorrow  
+# coreapp: Barebone Code Framework for Building Projects
 
-## 🚀 Introduction  
-**SiteForge** is an advanced AI-powered website builder built with **Node.js, Express, Tailwind CSS, and MySQL**. It allows users to **drag & drop HTML elements** onto a canvas, **customize them using a style popup**, and **save pages for later access**. The platform also features **role-based access control** to manage different user permissions.  
+## 🚀 Introduction
 
-## 🎯 Features  
-- **Drag & Drop Page Builder** – Select from a variety of HTML elements and arrange them freely.  
-- **Style Customization** – Modify styles using an interactive popup with real-time previews.  
-- **Save & Revisit Pages** – Store pages in the database and access them anytime.  
-- **Role-Based Access Control** – Different user roles with varying permissions.  
-- **Responsive UI** – Built with **Tailwind CSS** for a sleek and adaptive design.  
+**coreapp** is a minimalistic code framework designed to serve as a foundation for building other applications. Built with **Node.js, Express, Tailwind CSS, and MySQL**, this framework provides the essential features required for authentication, role-based access control, and AI-driven content generation via the GPT Rapid API.
 
-## 🛠️ Tech Stack  
-- **Backend:** Node.js, Express.js  
-- **Frontend:** Tailwind CSS, Alpine.js  
-- **Database:** MySQL  
-- **Authentication & Roles:** Csurf, Express Session  
+## 🎯 Features
 
+- **Basic Authentication** – User login and registration system.
+- **Role-Based Access Control** – Admins have access to all users' listings; users have limited access.
+- **Admin Dashboard** – Admins can manage and view all user data.
+- **AI-Powered Content Generation** – Generate content using the GPT Rapid API.
+- **Tailwind CSS** – Sleek, responsive design for the user interface.
 
-## 🚀 Getting Started  
+## 🛠️ Tech Stack
 
-### 1️⃣ Clone the Repository  
-```sh
-git clone https://github.com/yourusername/siteforge.git  
-cd siteforge
+- **Backend:** Node.js, Express.js
+- **Frontend:** Tailwind CSS
+- **Database:** MySQL
+- **Authentication & Roles:** Csurf, Express Session
+- **AI Integration:** GPT Rapid API for generating content.
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/voilacode/coreapp.git
+cd coreapp
+npm i
 ```
 
 ### 2️⃣ Setup Database Credentials
+
 ```sh
 const mysql = require('mysql2');
 
@@ -42,30 +48,36 @@ module.exports = db;
 ```
 
 ### 3️⃣ Setup Database
+
+User table
+
 ```sh
--- Create the 'users' table
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    gender ENUM('male', 'female', 'other') NOT NULL,
+    location VARCHAR(255) NOT NULL,
     role ENUM('user', 'admin') DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+```
 
--- Create the 'pages' table
-CREATE TABLE pages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(40) NOT NULL,
-    content JSON NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+Insert default users with password as 12345
+
+```sh
+INSERT INTO users (name, phone, email, password, gender, location, role)
+VALUES ('Admin', '1234567890', 'admin@gmail.com', '$2b$10$K7VtV9GZnFh1i.AJ1lDAauodmOPX6P5kpcKl7tt4jIhZ1P33mpsNi', 'male', 'Admin Location', 'admin');
+INSERT INTO users (name, phone, email, password, gender, location, role)
+VALUES ('User', '1234567890', 'user@gmail.com', '$2b$10$K7VtV9GZnFh1i.AJ1lDAauodmOPX6P5kpcKl7tt4jIhZ1P33mpsNi', 'male', 'User Location', 'user');
 ```
 
 ### 4️⃣ Start the Server
+
 ```sh
 node app.js
 ```
-
 
 convert this to an app called "SignSense: AI Hand Gesture-Based Language Interpreter", and keep table only of users table
