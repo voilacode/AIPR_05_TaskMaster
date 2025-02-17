@@ -69,10 +69,10 @@ Insert default users into tables, the accounts are created with password as 1234
 
 ```sh
 INSERT INTO users (name, phone, email, password, gender, location, role)
-VALUES ('Admin', '1234567890', 'admin@gmail.com', '$2b$10$K7VtV9GZnFh1i.AJ1lDAauodmOPX6P5kpcKl7tt4jIhZ1P33mpsNi', 'male', 'Admin Location', 'admin');
+VALUES ('Admin', '1234567890', 'admin@gmail.com', '$2b$10$MN9cI0M2wzY2r8fJ6xazlOqKWgdPGBsNUWEZqtqBcyIb01fXs.WGW', 'male', 'Admin Location', 'admin');
 
 INSERT INTO users (name, phone, email, password, gender, location, role)
-VALUES ('User', '1234567890', 'user@gmail.com', '$2b$10$K7VtV9GZnFh1i.AJ1lDAauodmOPX6P5kpcKl7tt4jIhZ1P33mpsNi', 'male', 'User Location', 'user');
+VALUES ('User', '1234567890', 'user@gmail.com', '$2b$10$MN9cI0M2wzY2r8fJ6xazlOqKWgdPGBsNUWEZqtqBcyIb01fXs.WGW', 'male', 'User Location', 'user');
 ```
 
 ## Login Details
