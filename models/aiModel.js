@@ -1,9 +1,11 @@
 const axios = require('axios');
 
+// API Configuration
+const url = 'https://chat-gpt26.p.rapidapi.com/';
+const apiKey = 'ea86ec0756msh17e532df1e1c9c9p170c20jsnebad0933d91c';
+
 // Function to generate AI content using RapidAPI
 async function generateAIContent(task, time) {
-  const url = 'https://chat-gpt26.p.rapidapi.com/';
-
   let prompt =
     `Consider that user gave these tasks ` +
     task +
@@ -26,11 +28,11 @@ async function generateAIContent(task, time) {
 
         The HTML should use Tailwind CSS for styling. You will follow this  format for the response. 
         Make sure to return only HTML code that can be displayed on a webpage.`;
+
   const options = {
     method: 'POST',
     headers: {
-      // Replace with your actual RapidAPI key
-      'x-rapidapi-key': 'ea86ec0756msh17e532df1e1c9c9p170c20jsnebad0933d91c',
+      'x-rapidapi-key': apiKey, // Using the key from the beginning
       'x-rapidapi-host': 'chat-gpt26.p.rapidapi.com',
       'Content-Type': 'application/json',
     },
