@@ -1,34 +1,57 @@
-# Coreapp: Barebone Framework for Building Projects
+# TaskMaster: AI-Powered Productivity Enhancer
 
 ## 🚀 Introduction
 
-**Coreapp** is a minimalistic code framework designed to serve as a foundation for building other applications. Built with **Node.js, Express, Tailwind CSS, and MySQL**, this framework provides the essential features required for authentication, role-based access control, and AI-driven content generation via the GPT Rapid API.
+In a fast-paced world where efficiency and time management are paramount, **TaskMaster** emerges as a game-changing productivity enhancer powered by artificial intelligence. This platform redefines task management by offering intelligent tools to streamline workflows, prioritize tasks, and boost productivity.
 
-## 🎯 Features
+Built using modern technologies such as **Node.js, Express, Tailwind CSS, and MySQL**, TaskMaster integrates AI-driven insights and automation to empower users in managing their professional and personal responsibilities effectively.
 
-- **Basic Authentication** – User login and registration system.
-- **Role-Based Access Control** – Admins have access to all users' listings; users have limited access.
-- **Admin Dashboard** – Admins can manage and view all user data.
-- **AI-Powered Content Generation** – Generate content using the GPT Rapid API.
-- **Tailwind CSS** – Sleek, responsive design for the user interface.
+---
+
+## ⚡ Features
+
+- **Intelligent Task Management**: Streamline workflows with smart task creation, assignment, and tracking.
+- **AI-Driven Insights**: Leverage AI algorithms to optimize schedules, prioritize tasks, and provide actionable recommendations.
+- **Real-Time Notifications**: Stay updated with reminders and notifications for deadlines and task progress.
+- **Collaboration Tools**: Enhance team productivity with shared task lists, comments, and real-time updates.
+- **Goal Setting & Progress Tracking**: Set achievable goals and measure progress with precision.
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Node.js, Express.js
-- **Frontend:** Tailwind CSS
-- **Database:** MySQL
-- **Authentication & Roles:** Csurf, Express Session
-- **AI Integration:** GPT Rapid API for generating content.
+- **Backend**: Node.js, Express
+- **Frontend**: Tailwind CSS
+- **Database**: MySQL
+- **AI Integration**: Advanced algorithms for intelligent scheduling and productivity insights
+
+---
+
+## 🎨 User Experience
+
+TaskMaster provides a seamless user experience through its intuitive interface and feature-rich functionality. It enables users to:
+
+- Track tasks effortlessly
+- Set and manage goals
+- Measure progress with detailed analytics
+- Collaborate with team members in real-time
+
+---
 
 ## 🚀 Getting Started
 
-### 1️⃣ Clone the Repository
+### Prerequisites
 
-```bash
-git clone https://github.com/voilacode/coreapp.git
-cd coreapp
-npm i
-```
+- Node.js
+- MySQL
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/voilacode/AIPR_05_TaskMaster.git
+   cd AIPR_05_TaskMaster
+   ```
 
 ### 2️⃣ Setup Database Credentials
 
