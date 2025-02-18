@@ -6,20 +6,30 @@
     <title>AI Application</title>
     <meta name="csrf-token" content="<%= csrfToken %>">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background-image: url('https://i.ibb.co/JFzfL4HK/pexels-ifreestock-577558.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+      }
+    </style>
 </head>
-<body class="bg-gray-100">
- <!-- Navbar -->
- <nav class="bg-purple-600 p-4 shadow-md">
-    <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
-      <h1 class="text-white text-2xl font-semibold"><a href="/" class="text-white">Core App</a></h1>
-      <div class="flex space-x-4">  
-        <a href="/" class="text-white text-sm  bg-purple-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Home</a>
-        <a href="/aiapp" class="text-white text-sm  bg-purple-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">AI App</a>
-        <a href="/profile" class="text-white text-sm  bg-purple-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Profile</a>
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md py-4">
+    <div class="max-w-screen-xl mx-auto px-6 flex justify-between items-center">
+      <h1 class="text-3xl font-bold text-purple-600"><a href="/" class="hover:text-orange-500 duration-300">Task Master</a></h1>
+      <div class="flex space-x-6">  
+        <a href="/" class="text-white bg-purple-600 hover:bg-orange-500 duration-300 px-4 py-2 rounded text-sm font-semibold shadow-md">Home</a>
+        <a href="/profile" class="text-white bg-purple-600 hover:bg-orange-500 duration-300 px-4 py-2 rounded text-sm font-semibold shadow-md">Profile</a>
         <% if (user && user.role !== 'user') { %>  
-          <a href="/admin" class="text-white text-sm  bg-purple-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Admin</a>
+          <a href="/admin" class="text-white bg-purple-600 hover:bg-orange-500 duration-300 px-4 py-2 rounded text-sm font-semibold shadow-md">Admin</a>
         <% } %>
-        <a href="/logout" class="text-white text-sm  bg-purple-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Logout</a>
+        <a href="/logout" class="text-white bg-purple-600 hover:bg-orange-500 duration-300 px-4 py-2 rounded text-sm font-semibold shadow-md">Logout</a>
       </div>
     </div>
   </nav>
+
+ 

@@ -8,6 +8,7 @@
     "postinstall": "npm rebuild bcrypt --build-from-source"
   },
   "dependencies": {
+    "@azure/identity": "^4.6.0",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
@@ -18,6 +19,7 @@
     "express-session": "^1.18.1",
     "mysql2": "^3.12.0",
     "node-fetch": "^2.7.0",
+    "openai": "^4.85.1",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "tailwindcss": "^4.0.0"

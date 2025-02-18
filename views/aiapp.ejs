@@ -2,25 +2,232 @@
  <%- include('snippets/header') %>
 
 <main class="max-w-screen-xl px-16 mx-auto">
-  <div class="">
-    <h1 class="text-2xl font-semibold my-8">AI Content Generator</h1>
-    <form action="/aiapp" method="POST" class="p-8 bg-white shadow-md rounded">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <textarea name="prompt" rows="4" class="resize-none p-2 mb-4 border rounded border border-gray-200 focus: border-gray-200  w-full" placeholder="Enter your prompt..."></textarea>
-        <button type="submit" class=" p-2 mt-2 bg-blue-500 text-white rounded">Generate Result</button>
-    </form>
-  </div>
-  <div>
-    <% if (content && content !== "") { %>
-      <div class="bg-white p-6 my-4 shadow-md rounded-md">
-        <h3 class="pb-3 font-semibold text-lg">Result</h3>
-        <div>
-          <%= content %>
-        </div>
+  
+ 
+
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .task {
+        background-color: #fff;
+        padding: 30px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .task h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .priority {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .sub-task {
+        margin-left: 0px;
+        margin-bottom: 15px;
+        padding: 15px;
+        background-color: #f4f4f4;
+        border-radius: 8px;
+    }
+
+    .sub-task h4 {
+        margin-bottom: 5px;
+        font-size: 20px;
+        color: #444;
+    }
+
+    .steps {
+        list-style: none;
+        padding-left: 20px;
+    }
+
+    .steps li {
+        margin-bottom: 5px;
+    }
+
+    .time {
+        font-size: 16px;
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+
+    .low {
+        background-color: #e0f7fa;
+    }
+
+    .medium {
+        background-color: #fff9c4;
+    }
+
+    .high {
+        background-color: #ffebee;
+    }
+</style>
+
+
+
+<div class="w-full  p-6 bg-gray-900 rounded-lg shadow-xl my-4">
+  <h1 class="text-3xl font-bold mb-6 text-center text-blue-500">Task Master AI</h1>
+
+  <form action="/aiapp" method="POST" class="p-8 bg-white shadow-md rounded">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label for="taskInput" class="block text-sm font-medium">Enter your main task:</label>
+    <input type="text" id="taskInput" name="task" required class="my-2 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" placeholder="e.g., Complete my project documentation today">
+
+    <label for="timeInput" class="block text-sm font-medium">Enter the total time in minutes:</label>
+    <input type="number" id="timeInput" name="time" required class="my-2 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" placeholder="e.g., 120">
+
+    <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+      Generate Sub-Tasks
+    </button>
+  </form>
+
+  
+</div>
+
+<div>
+  <% if (content && content !== "") { %>
+    <div class="bg-white p-6 my-4 shadow-md rounded-md">
+      <h3 class="pb-3 font-semibold text-lg">Result</h3>
+      <div>
+        <%- content %>
       </div>
-      <div class="p-10"></div> 
-    <% } %>
-  </div>
+    </div>
+    <div class="p-10"></div> 
+  <% } %>
+</div>
+
+<script>
+  document.getElementById("taskForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Get the user input task and time
+    const mainTask = document.getElementById("taskInput").value;
+    const totalTime = parseInt(document.getElementById("timeInput").value);
+
+    if (mainTask.trim() === "" || isNaN(totalTime) || totalTime <= 0) {
+      alert("Please enter a valid task and time in minutes!");
+      return;
+    }
+
+    // Generate the sub-tasks with time allocation
+    const subTasks = generateSubTasks(mainTask, totalTime);
+
+    // Display the sub-tasks in the container
+    const subTasksList = document.getElementById("subTasksList");
+    subTasksList.innerHTML = ""; // Clear any previous tasks
+
+    subTasks.forEach(subTask => {
+      const subTaskElement = document.createElement("div");
+      subTaskElement.classList.add("sub-task");
+
+      subTaskElement.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="task-icons">
+            ${subTask.icon}
+          </div>
+          <div class="task-title">${subTask.task}</div>
+          <div class="priority ${subTask.priorityClass}">${subTask.priority}</div>
+        </div>
+        <p class="mt-2"><strong>Time allocated:</strong> ${subTask.time} minutes</p>
+      `;
+
+      subTasksList.appendChild(subTaskElement);
+    });
+
+    // Show the sub-tasks container
+    document.getElementById("subTasksContainer").classList.remove("hidden");
+  });
+
+  // Simulate AI breaking down a high-level task into sub-tasks with time allocation
+  function generateSubTasks(mainTask, totalTime) {
+    const subTasks = [];
+    let remainingTime = totalTime;
+
+    // Allocate time for high-priority tasks (50% of total time)
+    const highPriorityTime = Math.round(remainingTime * 0.5);
+    remainingTime -= highPriorityTime;
+
+    // Allocate time for medium-priority tasks (30% of total time)
+    const mediumPriorityTime = Math.round(remainingTime * 0.3);
+    remainingTime -= mediumPriorityTime;
+
+    // Remaining time will be low-priority (20%)
+    const lowPriorityTime = remainingTime;
+
+    // Adjust the final allocation to ensure the total time is accurate
+    const totalAllocatedTime = highPriorityTime + mediumPriorityTime + lowPriorityTime;
+    const difference = totalTime - totalAllocatedTime;
+
+    if (difference !== 0) {
+      // Adjust low priority to account for any rounding difference
+      lowPriorityTime += difference;
+    }
+
+    // Add the sub-tasks
+    if (mainTask.includes("documentation")) {
+      subTasks.push({
+        task: "📝 Outline project documentation sections.",
+        priority: "High",
+        priorityClass: "priority-high",
+        time: highPriorityTime,
+        icon: "📑"
+      });
+      subTasks.push({
+        task: "✍️ Write introduction and objectives section.",
+        priority: "High",
+        priorityClass: "priority-high",
+        time: highPriorityTime,
+        icon: "📖"
+      });
+      subTasks.push({
+        task: "💻 Write methodology section.",
+        priority: "Medium",
+        priorityClass: "priority-medium",
+        time: mediumPriorityTime,
+        icon: "🖥️"
+      });
+      subTasks.push({
+        task: "📊 Write results and conclusions section.",
+        priority: "Medium",
+        priorityClass: "priority-medium",
+        time: mediumPriorityTime,
+        icon: "📉"
+      });
+      subTasks.push({
+        task: "🔍 Proofread and edit the document.",
+        priority: "Low",
+        priorityClass: "priority-low",
+        time: lowPriorityTime,
+        icon: "🔎"
+      });
+    } else {
+      subTasks.push({
+        task: "🔄 Break down the main task into actionable items.",
+        priority: "High",
+        priorityClass: "priority-high",
+        time: highPriorityTime,
+        icon: "⚙️"
+      });
+    }
+
+    return subTasks;
+  }
+</script>
+
+
 </main>
       
  <!-- Loading Footer modules from snippets -->

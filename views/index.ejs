@@ -1,12 +1,110 @@
  <!-- Loading Header modules from snippets -->
  <%- include('snippets/header') %>
+ <!-- Main Container -->
+ <main class="max-w-screen-xl px-16 mx-auto">
+  
+ 
 
-<main class="max-w-screen-xl px-16 mx-auto">
-    <section class="p-5 bg-white my-5 rounded shadow">
-        <h1 class="text-2xl font-semibold pb-3"><%= message %></h1>
-        <p class="text-xl mb-8">hi, <%= user.name %>!</p>
-        <a href="/logout" class=" text-lg hover:bg-gray-300  bg-gray-200 px-4 py-2 my-3 rounded-md shadow">Logout</a>
-    </section>
+
+  <style>
+   
+
+    .task {
+        background-color: #fff;
+        padding: 30px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .task h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .priority {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .sub-task {
+        margin-left: 0px;
+        margin-bottom: 15px;
+        padding: 15px;
+        background-color: #f4f4f4;
+        border-radius: 8px;
+    }
+
+    .sub-task h4 {
+        margin-bottom: 5px;
+        font-size: 20px;
+        color: #444;
+    }
+
+    .steps {
+        list-style: none;
+        padding-left: 20px;
+    }
+
+    .steps li {
+        margin-bottom: 5px;
+    }
+
+    .time {
+        font-size: 16px;
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+
+    .low {
+        background-color: #e0f7fa;
+    }
+
+    .medium {
+        background-color: #fff9c4;
+    }
+
+    .high {
+        background-color: #ffebee;
+    }
+</style>
+
+
+
+<div class="w-full  p-6 bg-gray-900 rounded-lg shadow-xl my-4">
+  <h1 class="text-3xl font-bold mb-6 text-center text-blue-500">Task Master AI</h1>
+
+  <form action="/aiapp" method="POST" class="p-8 bg-white shadow-md rounded">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label for="taskInput" class="block text-sm font-medium">Enter your main task:</label>
+    <input type="text" id="taskInput" name="task" required class="my-2 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" placeholder="e.g., Complete my project documentation today">
+
+    <label for="timeInput" class="block text-sm font-medium">Enter the total time in minutes:</label>
+    <input type="number" id="timeInput" name="time" required class="my-2 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" placeholder="e.g., 120">
+
+    <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+      Generate Sub-Tasks
+    </button>
+  </form>
+
+  
+</div>
+
+<div>
+  <% if (content && content !== "") { %>
+    <div class="bg-white p-6 my-4 shadow-md rounded-md">
+      <h3 class="pb-3 font-semibold text-lg">Result</h3>
+      <div>
+        <%- content %>
+      </div>
+    </div>
+    <div class="p-10"></div> 
+  <% } %>
+</div>
+
+
 </main>
       
  <!-- Loading Footer modules from snippets -->

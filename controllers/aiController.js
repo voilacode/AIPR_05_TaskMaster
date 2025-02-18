@@ -9,11 +9,16 @@ exports.getAIApp = (req, res) => {
 
 // Handle AI content generation
 exports.generateAIContent = async (req, res) => {
-  let { prompt } = req.body;
+  const { task, time } = req.body;
+
+  console.log('Task:', task);
+  console.log('Time:', time);
+  console.log(task, time, req.body);
   const user = req.session.user;
 
   // Generate content using AI model
-  const generatedContent = await aiModel.generateAIContent(prompt);
+  const generatedContent = await aiModel.generateAIContent(task, time);
+  let content = generatedContent;
 
   // Show error if content generation fails
   if (!generatedContent) {
@@ -24,5 +29,5 @@ exports.generateAIContent = async (req, res) => {
   }
 
   // Render AI app page with generated content
-  res.render('aiapp', { content: generatedContent, user });
+  res.render('index', { content: content, user });
 };

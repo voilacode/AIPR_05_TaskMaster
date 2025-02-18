@@ -3,57 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
+  <title>Register - TaskMaster</title>
   <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAQHwjXyAiIxUCnh3-cFywq0K4ZmDFo20YAw&s">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: url('https://i.ibb.co/WpzmJYHX/pexels-brunogobofoto-3854816.jpg') no-repeat center center fixed;
+      background-size: cover;
+      opacity: 0.85;
+    }
+
+    .neon-border {
+      border: 2px solid transparent;
+      background: linear-gradient(130deg, #ffffff, #9aff9a);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      box-shadow: 0 4px 15px rgba(255, 110, 196, 0.4);
+    }
+  </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-[140vh]">
-  <div class="w-full max-w-lg my-20 p-6 bg-white rounded-lg shadow-lg">
-    <h1 class="text-2xl font-semibold mb-6 text-center text-gray-800">Register</h1>
+<body class="flex items-center justify-center my-5 text-gray-600">
+
+  <!-- Register Form -->
+  <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8 w-full max-w-lg neon-border shadow-xl">
+    <h1 class="text-4xl font-extrabold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 animate-pulse">
+      TaskMaster
+    </h1>
+    <p class="text-center text-gray-600 mb-6">Create your account and master your tasks!</p>
     
     <!-- Display error message if any -->
     <% if (error) { %>
-      <div class="bg-red-500 text-white p-4 rounded mb-4">
+      <div class="bg-red-500 text-gray-600 p-4 rounded mb-4">
         <p><%= error %></p>
       </div>
     <% } %>
     
     <form action="/register" method="POST" class="space-y-4">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+
       <div>
-        <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
-        <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <label for="name" class="block text-sm font-medium text-gray-600 mb-2">Name:</label>
+        <input type="text" id="name" name="name" required
+               class="w-full p-3 rounded-md bg-transparent border border-gray-500 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500">
       </div>
+      
       <div>
-        <label for="phone" class="block text-sm font-medium text-gray-700">Phone:</label>
-        <input type="text" id="phone" name="phone" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <label for="phone" class="block text-sm font-medium text-gray-600 mb-2">Phone:</label>
+        <input type="text" id="phone" name="phone" required
+               class="w-full p-3 rounded-md bg-transparent border border-gray-500 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500">
       </div>
+      
       <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
-        <input type="email" id="email" name="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <label for="email" class="block text-sm font-medium text-gray-600 mb-2">Email:</label>
+        <input type="email" id="email" name="email" required
+               class="w-full p-3 rounded-md bg-transparent border border-gray-500 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500">
       </div>
+      
       <div>
-        <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
-        <input type="password" id="password" name="password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <label for="password" class="block text-sm font-medium text-gray-600 mb-2">Password:</label>
+        <input type="password" id="password" name="password" required
+               class="w-full p-3 rounded-md bg-transparent border border-gray-500 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500">
       </div>
+      
       <div>
-        <label for="gender" class="block text-sm font-medium text-gray-700">Gender:</label>
-        <select id="gender" name="gender" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <label for="gender" class="block text-sm font-medium text-gray-600 mb-2">Gender:</label>
+        <select id="gender" name="gender" required
+                class="w-full p-3 rounded-md bg-transparent border border-gray-500 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500">
           <option value="" disabled selected>Select your gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
       </div>
+      
       <div>
-        <label for="location" class="block text-sm font-medium text-gray-700">Location:</label>
-        <input type="text" id="location" name="location" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <label for="location" class="block text-sm font-medium text-gray-600 mb-2">Location:</label>
+        <input type="text" id="location" name="location" required
+               class="w-full p-3 rounded-md bg-transparent border border-gray-500 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500">
       </div>
-      <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Register</button>
+      
+      <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-gray-200 py-3 rounded-md hover:opacity-90 transition-opacity duration-300 shadow-lg">
+        Register
+      </button>
     </form>
+    
     <p class="mt-4 text-center text-sm text-gray-600">
-      <a href="/login" class="text-blue-500 hover:text-blue-400">Already have an account? Login here.</a>
+      <a href="/login" class="text-pink-400 hover:text-pink-300 transition-colors duration-200">Already have an account? Login here.</a>
     </p>
   </div>
+
 </body>
 </html>
