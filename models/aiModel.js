@@ -46,8 +46,13 @@ async function generateAIContent(task, time) {
     console.log('ai response', response.data.choices[0].message.content);
     return response.data.choices[0].message.content;
   } catch (error) {
-    console.error(error);
-    return null;
+    console.error('Error Message:', error.response.data.message); // Specific message
+
+    return (
+      "<div class='bg-gray-100 p-3 rounded shadow'>" +
+      error.response.data.message +
+      '<div>'
+    );
   }
 }
 
